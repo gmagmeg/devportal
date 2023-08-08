@@ -1,0 +1,11 @@
+FROM node:19.8.1 as build
+
+WORKDIR /app
+
+COPY ./backend/package.json ./
+
+RUN npm i -g @nestjs/cli
+
+COPY ./backend .
+
+CMD ["npm", "start"]

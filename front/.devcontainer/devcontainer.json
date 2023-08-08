@@ -1,0 +1,27 @@
+{
+  "name": "frontend",
+  "dockerComposeFile": ["../../compose.yml"],
+  "service": "devportal-frontend",
+  "workspaceFolder": "/app",
+  "forwardPorts": [3100],
+  "runServices": ["devportal-frontend"],
+  "postCreateCommand": "npm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "bradlc.vscode-tailwindcss",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "workbench.colorCustomizations": {
+          "tab.activeBackground": "#3363a3",
+          "titleBar.activeBackground": "#3363a3",
+          "titleBar.activeForeground": "#000"
+        },
+        "json.schemaDownload.enable": true
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+FROM node:19.9 as build
+
+ARG UID
+ARG GID
+
+RUN if getent passwd $UID ; then echo "User with UID $UID already exists." ; else useradd --uid $UID user ; fi
+RUN if getent group $GID ; then echo "Group with GID $GID already exists." ; else groupadd --gid $GID group ; fi
+
+USER $UID:$GID
+
+WORKDIR /app
+COPY ./backend/package.json ./
+RUN npm install
+COPY ./backend .
+
+CMD ["npm", "run", "start:dev"]

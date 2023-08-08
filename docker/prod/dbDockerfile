@@ -1,0 +1,7 @@
+FROM mysql:8.0.28
+
+RUN mkdir -p /var/log/mysql && chown mysql:mysql /var/log/mysql && chmod 750 /var/log/mysql
+
+RUN mkdir -p /var/lib/mysql-files && chown mysql:mysql /var/lib/mysql-files && chmod 750 /var/lib/mysql-files
+
+COPY ./my.cnf /etc/mysql/my.cnf

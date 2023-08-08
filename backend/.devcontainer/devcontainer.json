@@ -1,0 +1,35 @@
+{
+	"name": "backend",
+	"dockerComposeFile": [
+		"../../compose.yml"
+	],
+	"service": "devportal-backend",
+	"workspaceFolder": "/app",
+	"forwardPorts": [
+		3101
+	],
+	"runServices": [
+		"devportal-backend"
+	],
+	"postCreateCommand": "npm install && npx prisma generate",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"orta.vscode-jest",
+				"dbaeumer.vscode-eslint",
+				"GitHub.copilot",
+				"cweijan.vscode-mysql-client2",
+				"esbenp.prettier-vscode"
+			],
+			"settings": {
+				"workbench.colorCustomizations": {
+					"tab.activeBackground": "#3363a3",
+					"titleBar.activeBackground": "#d95070",
+					"titleBar.activeForeground": "#000"
+				},
+				"json.schemaDownload.enable": true
+			}
+		}
+	},
+	"remoteUser": "root"
+}

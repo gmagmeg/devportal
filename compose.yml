@@ -1,0 +1,52 @@
+services:
+  devportal-frontend:
+    container_name: "devportal-frontend"
+    build:
+      context: ./
+      dockerfile: docker/dev/frontDockerfile
+    volumes:
+      - ./front:/app
+      - front_node_modules:/app/node_modules
+    ports:
+      - "3100:3000"
+    dns:
+      - 8.8.8.8
+    environment:
+      - TZ=Asia/Tokyoz
+      
+  devportal-backend:
+    container_name: "devportal-backend"
+    build:
+      context: ./
+      dockerfile: docker/dev/backDockerfile
+    volumes:
+      - ./backend:/app
+      - backend_node_modules:/app/node_modules
+    ports:
+      - "3101:3001"
+    dns:
+      - 8.8.8.8
+    environment:
+      - TZ=Asia/Tokyo
+
+  devportal-db:
+    container_name: "devportal-db"
+    image: mysql:8.0.33
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - devportal-db-data:/var/lib/mysql
+      - ./database/my.cnf:/etc/mysql/my.cnf
+    expose:
+      - 3306
+    ports:
+      - "3102:3306"
+
+volumes:
+  devportal-db-data:
+  backend_node_modules:
+  front_node_modules:

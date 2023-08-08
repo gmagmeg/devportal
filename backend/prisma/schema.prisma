@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Site {
+  id           Int            @id @default(autoincrement())
+  name         String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now())
+  TrendHistory TrendHistory[]
+}
+
+model TrendHistory {
+  id           Int            @id @default(autoincrement())
+  siteId       Int
+  importDate   DateTime
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now())
+  TrendArticle TrendArticle[]
+  Site         Site           @relation(fields: [siteId], references: [id])
+
+  @@unique([siteId, importDate])
+}
+
+model TrendArticle {
+  id             Int          @id @default(autoincrement())
+  trendHistoryId Int
+  articleId      Int
+  title          String
+  url            String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
+  TrendHistory   TrendHistory @relation(fields: [trendHistoryId], references: [id])
+
+  @@unique([trendHistoryId, articleId])
+  @@index([trendHistoryId], map: "TrendArticle_trendHistoryId_fkey")
+}
