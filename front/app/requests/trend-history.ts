@@ -7,7 +7,9 @@ export const fetchWeeklyTrend = async (siteName: SiteName): Promise<WeeklyTrendA
   const requestDate = day().add(1, 'day').format('YYYY-MM-DD')
 
   try {
-    const res = await fetch(`${BASE_URL}trend-history/${requestDate}/${siteName}`)
+    const res = await fetch(`${BASE_URL}trend-history/${requestDate}/${siteName}`, {
+      cache: 'no-cache',
+    })
     const data: { response: WeeklyTrendArticle } = await res.json()
     return data.response
   } catch (error) {
